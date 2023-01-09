@@ -22,18 +22,22 @@ def imageToData(filename):
   return numImage
 
 def predictDigits(data):
+  # 学習用データを読み込む
   digits = sklearn.datasets.load_digits()
-
+  # 学習をする
   clf = sklearn.svm.SVC(gamma = 0.001)
   clf.fit(digits.data, digits.target)
-
+  # 予測結果を表示する
   n = clf.predict([data])
   textLabel.configure(text = 'この画像は' + str(n) + 'です')
 
 def openFile():
+  # ファイルダイアログを開く
   fpath = fd.askopenfilename()
   if fpath:
+    # 画像データを関数に入れ数値リストに変換
     data = imageToData(fpath)
+    # 帰ってきたデータを関数に入れ数字を予測
     predictDigits(data)
 
 root = tk.Tk()
